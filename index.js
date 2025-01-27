@@ -8,8 +8,9 @@
 import GAMES_DATA from './games.js';
 
 // create a list of objects to store the data about the games using JSON.parse
-const GAMES_JSON = JSON.parse(GAMES_DATA)
+const GAMES_JSON = JSON.parse(GAMES_DATA);
 
+console.log(GAMES_JSON);
 // remove all child elements from a parent element in the DOM
 function deleteChildElements(parent) {
     while (parent.firstChild) {
@@ -30,26 +31,37 @@ function addGamesToPage(games) {
 
     // loop over each item in the data
 
+    for (let i = 0; i < games.length; i++) {
+        const game = games[i];
+    
 
         // create a new div element, which will become the game card
 
-
+    const gameCard= document.createElement('div');
         // add the class game-card to the list
-
+    gameCard.classList.add('game-card');
 
         // set the inner HTML using a template literal to display some info 
         // about each game
+        gameCard.innerHTML = `
+        <h2>${game.name}</h2>
+        <img src="${game.img}" alt="${game.name}" />
+        <p>${game.description}</p>
+        <p>Pledged: $${game.pledged.toLocaleString()}</p>
+        <p>Goal: $${game.goal.toLocaleString()}</p>
+        <p>Backers: ${game.backers}</p>
+    `;
         // TIP: if your images are not displaying, make sure there is space
         // between the end of the src attribute and the end of the tag ("/>")
 
 
         // append the game to the games-container
-
-}
+        gamesContainer.appendChild(gameCard);
+}}
 
 // call the function we just defined using the correct variable
 // later, we'll call this function using a different list of games
-
+addGamesToPage(GAMES_JSON);
 
 /*************************************************************************************
  * Challenge 4: Create the summary statistics at the top of the page displaying the
